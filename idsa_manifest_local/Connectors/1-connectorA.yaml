@@ -35,7 +35,7 @@ spec:
 
 
         name: connectora
-        image: ghcr.io/international-data-spaces-association/dataspace-connector:latest
+        image: ghcr.io/international-data-spaces-association/dataspace-connector:8.0.2
         ports:
         - containerPort: 8080
           name: connectora
@@ -60,10 +60,6 @@ spec:
         - name: mydir-secret-config
           mountPath: /config/truststore.p12
           subPath: truststore.p12
-        
-        - name: mydir-secret-config
-          mountPath: /conf/testbed1.p12
-          subPath: testbed1.p12   
 
       restartPolicy: Always
       
@@ -75,9 +71,7 @@ spec:
             - key: connectora
               path: connectorA.p12
             - key: truststore
-              path: truststore.p12
-            - key: testbed1
-              path: testbed1.p12                         
+              path: truststore.p12                       
 
       - name: mydir-config 
         configMap:
