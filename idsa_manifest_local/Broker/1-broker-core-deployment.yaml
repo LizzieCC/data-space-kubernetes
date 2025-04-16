@@ -35,7 +35,6 @@ spec:
           value: http://broker-fuseki:3030/connectorData
 
         image: ghcr.io/flexigrobots-h2020/broker-core:latest
-
         name: broker-core
         ports:
         - containerPort: 8080
@@ -54,9 +53,6 @@ spec:
       - name: isstbroker 
         secret:
           secretName: ids-files-isstbroker-keystore    
-      volumeMounts:
-      - mountPath: /etc/cert
-        name: isstbroker 
 
       restartPolicy: Always
 status: {}

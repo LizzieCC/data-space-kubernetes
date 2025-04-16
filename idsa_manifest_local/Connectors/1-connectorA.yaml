@@ -31,7 +31,7 @@ spec:
         - name: SERVER_PORT
           value: "8080"
         - name: SERVER_SSL_KEY-STORE
-          value: file:///config/connectorA.p12
+          value: file:///conf/connectorA.p12
 
 
         name: connectora
@@ -54,7 +54,7 @@ spec:
           subPath: config.json
 
         - name: mydir-secret-config
-          mountPath: /config/connectorA.p12
+          mountPath: /conf/connectorA.p12
           subPath: connectorA.p12
         
         - name: mydir-secret-config

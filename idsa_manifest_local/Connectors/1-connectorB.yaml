@@ -32,7 +32,7 @@ spec:
         - name: SERVER_PORT
           value: "8081"
         - name: SERVER_SSL_KEY-STORE
-          value: file:///config/connectorB.p12
+          value: file:///conf/connectorB.p12
         
         name: connectorb
         image: ghcr.io/international-data-spaces-association/dataspace-connector:8.0.2
@@ -55,7 +55,7 @@ spec:
           subPath: config.json
 
         - name: mydir-secret-config
-          mountPath: /config/connectorB.p12
+          mountPath: /conf/connectorB.p12
           subPath: connectorB.p12
         
         - name: mydir-secret-config
