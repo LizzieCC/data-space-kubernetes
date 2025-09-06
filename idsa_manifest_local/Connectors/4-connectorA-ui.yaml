@@ -38,3 +38,23 @@ spec:
     - name: http
       port: 8083
       targetPort: 8083
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: connectora-ui
+  namespace: ids-2
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: connectora-ui.localhost
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: connectora-ui
+                port:
+                  number: 8083
