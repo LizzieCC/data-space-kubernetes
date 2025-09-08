@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: connectora-ui
+  namespace: ids-2
+  labels: { app: connectora-ui }
+spec:
+  replicas: 1
+  selector: { matchLabels: { app: connectora-ui } }
+  template:
+    metadata: { labels: { app: connectora-ui } }
+    spec:
+      containers:
+        - name: connectora-ui
+          image: ghcr.io/international-data-spaces-association/dataspace-connector-ui:9.0.0
+          env:
+            - name: CONNECTOR_URL
+              value: "https://connectora:8080"
+            - name: CONNECTOR_USER
+              value: "admin"
+            - name: CONNECTOR_PASSWORD
+              value: "password"
+            - name: UI_TITLE
+              value: "Dataspace Connector UI - A"
+          ports:
+            - containerPort: 8083
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: connectora-ui
+  namespace: ids-2
+  labels: { app: connectora-ui }
+spec:
+  type: ClusterIP
+  selector: { app: connectora-ui }
+  ports:
+    - name: http
+      port: 8083
+      targetPort: 8083
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: connectora-ui
+  namespace: ids-2
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: connectora-ui.localhost
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: connectora-ui
+                port:
+                  number: 8083

@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: connectorb-ui
+  namespace: ids-2
+  labels: { app: connectorb-ui }
+spec:
+  replicas: 1
+  selector: { matchLabels: { app: connectorb-ui } }
+  template:
+    metadata: { labels: { app: connectorb-ui } }
+    spec:
+      containers:
+        - name: connectorb-ui
+          image: ghcr.io/international-data-spaces-association/dataspace-connector-ui:9.0.0
+          env:
+            - name: CONNECTOR_URL
+              value: "https://connectorb:8081"
+            - name: CONNECTOR_USER
+              value: "admin"
+            - name: CONNECTOR_PASSWORD
+              value: "password"
+            - name: UI_TITLE
+              value: "Dataspace Connector UI - B"
+          ports:
+            - containerPort: 8083
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: connectorb-ui
+  namespace: ids-2
+  labels: { app: connectorb-ui }
+spec:
+  type: ClusterIP
+  selector: { app: connectorb-ui }
+  ports:
+    - name: http
+      port: 8083
+      targetPort: 8083
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: connectorb-ui
+  namespace: ids-2
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: connectorb-ui.localhost
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: connectorb-ui
+                port:
+                  number: 8083

@@ -32,10 +32,10 @@ spec:
         - name: SERVER_PORT
           value: "8081"
         - name: SERVER_SSL_KEY-STORE
-          value: file:///config/connectorB.p12
+          value: file:///conf/connectorB.p12
         
         name: connectorb
-        image: ghcr.io/international-data-spaces-association/dataspace-connector:7.1.0
+        image: ghcr.io/international-data-spaces-association/dataspace-connector:8.0.2
         
         ports:
         - containerPort: 8081
@@ -55,16 +55,12 @@ spec:
           subPath: config.json
 
         - name: mydir-secret-config
-          mountPath: /config/connectorB.p12
+          mountPath: /conf/connectorB.p12
           subPath: connectorB.p12
         
         - name: mydir-secret-config
           mountPath: /config/truststore.p12
-          subPath: truststore.p12
-        
-        - name: mydir-secret-config
-          mountPath: /conf/testbed2.p12
-          subPath: testbed2.p12            
+          subPath: truststore.p12        
       
       restartPolicy: Always
 
@@ -76,9 +72,7 @@ spec:
             - key: connectorb
               path: connectorB.p12
             - key: truststore
-              path: truststore.p12
-            - key: testbed2
-              path: testbed2.p12                         
+              path: truststore.p12                        
 
 
       - name: mydir-config 
