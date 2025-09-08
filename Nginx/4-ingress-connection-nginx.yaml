@@ -46,7 +46,7 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: connectora
+            name: connectorb
             port:
               number: 8081
   
