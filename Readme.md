@@ -123,3 +123,4 @@ kubectl apply -f ./idsa_manifest_local/Connectors/4-connectorB-ui.yaml -n ids-2
 
 - Para producción se recomienda integrar certificados válidos (ej. Let’s Encrypt) y ajustar políticas de seguridad en `Ingress` y `NetworkPolicies`.  
 - Solo el directorio *idsa_manifest_local* esta actualizado.
+- Consultar DefaultReadme.md para requerimientos de hardware.
